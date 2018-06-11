@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=t6eHGb4biQVt70kKSn5esyYTf53tWG5o"></script>
+	<title>浏览器定位</title>
+</head>
+<body>
+	<div id="allmap" ></div>
+	<div id="allmap2" ></div>
+	<div id="allmap3" ></div>
+	<button onclick="app()">sdf</button>
+</body>
+</html>
+<script type="text/javascript">
+function app(){
+	var geolocation = new BMap.Geolocation();
+	var geoc = new BMap.Geocoder();
+	
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var point = r.point;
+			document.getElementById("allmap2").innerHTML='您的位置：'+r.point.lng+','+r.point.lat;
+			geoc.getLocation(r.point,function(rs){
+				var addComp=rs.addressComponents;
+				document.getElementById("allmap3").innerHTML=addComp.province+","+addComp.city+","+addComp.district+","+addComp.street+","+addComp.streetNumber;
+			});
+		}else{
+			alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+}
+	
+	
+	 
+	
+	
+	
+	
+</script>
